@@ -81,6 +81,7 @@ class App extends Component {
       <>
         <Navbar />
         <div className="container">
+          <hr />
           <h1 className="text-center">Cosa desideri ordinare?</h1>
           <hr />
           <div className="row d-flex justify-content-center">
@@ -95,7 +96,7 @@ class App extends Component {
               </div>
             ))}
           </div>
-          <div className="text-right">
+          <div className="text-right d-flex justify-content-center p-2">
             <button className="btn btn-warning" onClick={this.handleReset}>
               Reset
             </button>
