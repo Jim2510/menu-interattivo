@@ -2,7 +2,7 @@
   "name": "menu-interattivo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jim2510.github.io/",
+  "homepage": "https://jim2510.github.io/menu-interattivo/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
