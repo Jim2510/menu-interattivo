@@ -30,12 +30,12 @@ class Card extends Component {
               Rimuovi
             </button>
           )}
-          <button
+          {/* <button
             onClick={() => this.props.onDelete(this.props.card.id)}
             className="btn btn-outline-danger"
           >
             Elimina
-          </button>
+          </button> */}
         </div>
       </div>
     );

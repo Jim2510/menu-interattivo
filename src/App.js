@@ -1,17 +1,20 @@
-import Navbar from "./components/Navbar";
-import Card from "./components/Card";
-import CategoryMenu from "./components/CategoryMenu";
 import React, { Component } from "react";
+import Navbar from "./components/Navbar";
+import CategoryMenu from "./components/CategoryMenu";
+import Card from "./components/Card";
+
 import california from "./images/california.png";
 import dragon from "./images/dragon.png";
 import dynamite from "./images/dynamite.png";
 import philadelphia from "./images/philadelphia.png";
 import rainbow from "./images/rainbow.png";
 import shrimp from "./images/shrimp.png";
-import "../src/App.css";
+
+import "./App.css";
 
 class App extends Component {
   state = {
+    numberOfPeople: 1,
     totalSelected: 0,
     selectedCategory: null,
     categories: ["Hosomaki", "Uramaki", "Temaki", "Futomaki"],
@@ -67,13 +70,43 @@ class App extends Component {
     ],
   };
 
+  // Funzione per ottenere il limite del piatto in base al nome
+  getLimitForPiatto(piattoNome) {
+    if (piattoNome === "Dragon") {
+      return 1; // Limite per il "Dragon Roll"
+    } else {
+      return 6; // Limite predefinito per gli altri piatti
+    }
+  }
+
+  handleNumberOfPeopleChange = (event) => {
+    const numberOfPeople = parseInt(event.target.value, 10);
+  
+    // Aggiorna il limite per il "Dragon Roll" in base al numero di persone
+    const newCards = this.state.cards.map((card) => {
+      if (card.nome === "Dragon") {
+        return { ...card, quantità: 0 }; // Azzera la quantità per il "Dragon Roll"
+      }
+      return card;
+    });
+  
+    // Calcola il nuovo limite per il "Dragon Roll"
+    const dragonRollLimit = numberOfPeople;
+  
+    this.setState({
+      numberOfPeople,
+      cards: newCards,
+      dragonRollLimit, // Aggiungi il nuovo limite al tuo stato
+      totalSelected: 0, // Resetta il totale selezionato
+    });
+  };
+
   handleReset = () => {
+    const cards = this.state.cards.map((card) => ({ ...card, quantità: 0 }));
     this.setState({
       selectedCategory: null,
-      cards: this.state.cards.map((card) => ({
-        ...card,
-        quantità: 0,
-      })),
+      cards,
+      totalSelected: 0,
     });
   };
 
@@ -87,12 +120,31 @@ class App extends Component {
   };
 
   handleIncrement = (card) => {
-    const cards = [...this.state.cards];
+    const { cards, totalSelected, numberOfPeople, dragonRollLimit } = this.state;
     const id = cards.findIndex((c) => c.id === card.id);
-    cards[id] = { ...card };
-    cards[id].quantità++;
-    this.setState({ cards, totalSelected: this.state.totalSelected + 1 });
+  
+    if (
+      card.nome === "Dragon" &&
+      totalSelected < numberOfPeople * dragonRollLimit &&
+      cards[id].quantità < dragonRollLimit
+    ) {
+      cards[id] = { ...card };
+      cards[id].quantità++;
+      this.setState({
+        cards,
+        totalSelected: totalSelected + 1,
+      });
+    } else if (card.nome !== "Dragon" && totalSelected < numberOfPeople * 6) {
+      // Utilizza il limite predefinito (6) per gli altri piatti
+      cards[id] = { ...card };
+      cards[id].quantità++;
+      this.setState({
+        cards,
+        totalSelected: totalSelected + 1,
+      });
+    }
   };
+  
 
   handleDecrement = (card) => {
     const cards = [...this.state.cards];
@@ -105,7 +157,7 @@ class App extends Component {
   };
 
   render() {
-    const { selectedCategory, cards, categories } = this.state;
+    const { selectedCategory, cards, categories, numberOfPeople } = this.state;
     const filteredCards = selectedCategory
       ? cards.filter(
           (card) =>
@@ -126,9 +178,20 @@ class App extends Component {
             onCategoryChange={this.handleCategoryChange}
           />
           <hr />
-          <p className="text-center">
-            Piatti selezionati: {this.state.totalSelected}
-          </p>
+          <select
+            value={numberOfPeople}
+            onChange={this.handleNumberOfPeopleChange}
+            className="form-control text-center"
+          >
+            {[1, 2, 3, 4].map((value) => (
+              <option key={value} value={value}>
+                {value} person{value > 1 ? "e" : "a"}
+              </option>
+            ))}
+          </select>
+
+          <hr />
+          <p className="text-center">Piatti selezionati: {this.state.totalSelected}</p>
           <hr />
           <div className="row d-flex justify-content-center">
             {filteredCards.map((card) => (
