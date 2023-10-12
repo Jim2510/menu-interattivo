@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/MenuReact/static/css/main.67e50d1b.css",
-    "main.js": "/MenuReact/static/js/main.c30510c2.js",
-    "static/js/787.f8c13ba2.chunk.js": "/MenuReact/static/js/787.f8c13ba2.chunk.js",
-    "static/media/california.png": "/MenuReact/static/media/california.8841dc37ffb867d03a9e.png",
-    "static/media/dynamite.png": "/MenuReact/static/media/dynamite.9d799dd25783e467fc3a.png",
-    "static/media/dragon.png": "/MenuReact/static/media/dragon.4fe43b5ba6f1c5fc5865.png",
-    "static/media/shrimp.png": "/MenuReact/static/media/shrimp.bde8dbaa9c88df980ea4.png",
-    "static/media/philadelphia.png": "/MenuReact/static/media/philadelphia.f45320df8816667e22b7.png",
-    "static/media/rainbow.png": "/MenuReact/static/media/rainbow.2e51536658d7241d1d1a.png",
-    "index.html": "/MenuReact/index.html",
-    "main.67e50d1b.css.map": "/MenuReact/static/css/main.67e50d1b.css.map",
-    "main.c30510c2.js.map": "/MenuReact/static/js/main.c30510c2.js.map",
-    "787.f8c13ba2.chunk.js.map": "/MenuReact/static/js/787.f8c13ba2.chunk.js.map"
+    "main.css": "/menu-interattivo/static/css/main.67e50d1b.css",
+    "main.js": "/menu-interattivo/static/js/main.ec4bcb5f.js",
+    "static/js/787.f8c13ba2.chunk.js": "/menu-interattivo/static/js/787.f8c13ba2.chunk.js",
+    "static/media/california.png": "/menu-interattivo/static/media/california.8841dc37ffb867d03a9e.png",
+    "static/media/dynamite.png": "/menu-interattivo/static/media/dynamite.9d799dd25783e467fc3a.png",
+    "static/media/dragon.png": "/menu-interattivo/static/media/dragon.4fe43b5ba6f1c5fc5865.png",
+    "static/media/shrimp.png": "/menu-interattivo/static/media/shrimp.bde8dbaa9c88df980ea4.png",
+    "static/media/philadelphia.png": "/menu-interattivo/static/media/philadelphia.f45320df8816667e22b7.png",
+    "static/media/rainbow.png": "/menu-interattivo/static/media/rainbow.2e51536658d7241d1d1a.png",
+    "index.html": "/menu-interattivo/index.html",
+    "main.67e50d1b.css.map": "/menu-interattivo/static/css/main.67e50d1b.css.map",
+    "main.ec4bcb5f.js.map": "/menu-interattivo/static/js/main.ec4bcb5f.js.map",
+    "787.f8c13ba2.chunk.js.map": "/menu-interattivo/static/js/787.f8c13ba2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.67e50d1b.css",
-    "static/js/main.c30510c2.js"
+    "static/js/main.ec4bcb5f.js"
   ]
 }
