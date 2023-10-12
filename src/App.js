@@ -1,6 +1,5 @@
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
-import SelectedDishes from "./components/SelectedDishes";
 import CategoryMenu from "./components/CategoryMenu";
 import React, { Component } from "react";
 import california from "./images/california.png";
@@ -9,12 +8,12 @@ import dynamite from "./images/dynamite.png";
 import philadelphia from "./images/philadelphia.png";
 import rainbow from "./images/rainbow.png";
 import shrimp from "./images/shrimp.png";
-import '../src/App.css';
+import "../src/App.css";
 
 class App extends Component {
   state = {
+    totalSelected: 0,
     selectedCategory: null,
-    selectedDishes: [],
     categories: ["Hosomaki", "Uramaki", "Temaki", "Futomaki"],
     cards: [
       {
@@ -68,25 +67,13 @@ class App extends Component {
     ],
   };
 
-  handleAddToSelectedDishes = (selectedDish) => {
-    const { selectedDishes } = this.state;
-    const existingDishIndex = selectedDishes.findIndex((dish) => dish.id === selectedDish.id);
-
-    if (existingDishIndex !== -1) {
-      // Se il piatto è già presente nell'elenco, incrementa la quantità
-      selectedDishes[existingDishIndex].quantità++;
-    } else {
-      // Altrimenti, aggiungi il piatto all'elenco con quantità 1
-      selectedDishes.push({ ...selectedDish, quantità: 1 });
-    }
-
-    this.setState({ selectedDishes });
-  };
-
   handleReset = () => {
-    // Ripristina lo stato iniziale
     this.setState({
       selectedCategory: null,
+      cards: this.state.cards.map((card) => ({
+        ...card,
+        quantità: 0,
+      })),
     });
   };
 
@@ -104,7 +91,7 @@ class App extends Component {
     const id = cards.findIndex((c) => c.id === card.id);
     cards[id] = { ...card };
     cards[id].quantità++;
-    this.setState({ cards });
+    this.setState({ cards, totalSelected: this.state.totalSelected + 1 });
   };
 
   handleDecrement = (card) => {
@@ -113,14 +100,17 @@ class App extends Component {
     if (cards[id].quantità > 0) {
       cards[id] = { ...card };
       cards[id].quantità--;
-      this.setState({ cards });
+      this.setState({ cards, totalSelected: this.state.totalSelected - 1 });
     }
   };
 
   render() {
-    const { selectedCategory, cards, categories, selectedDishes } = this.state;
+    const { selectedCategory, cards, categories } = this.state;
     const filteredCards = selectedCategory
-      ? cards.filter((card) => card.category === selectedCategory || selectedCategory === "Uramaki")
+      ? cards.filter(
+          (card) =>
+            card.category === selectedCategory || selectedCategory === "Uramaki"
+        )
       : cards;
 
     return (
@@ -136,7 +126,9 @@ class App extends Component {
             onCategoryChange={this.handleCategoryChange}
           />
           <hr />
-          <SelectedDishes selectedDishes={selectedDishes} />
+          <p className="text-center">
+            Piatti selezionati: {this.state.totalSelected}
+          </p>
           <hr />
           <div className="row d-flex justify-content-center">
             {filteredCards.map((card) => (
@@ -146,13 +138,15 @@ class App extends Component {
                   onIncrement={this.handleIncrement}
                   onDecrement={this.handleDecrement}
                   onDelete={this.handleDelete}
-                  onAddToSelectedDishes={this.handleAddToSelectedDishes}
                 />
               </div>
             ))}
           </div>
-          <div className="text-right d-flex justify-content-center p-2">
-            <button className="btn btn-warning" onClick={this.handleReset}>
+          <div className="d-flex justify-content-center">
+            <button
+              className="btn btn-warning text-center mb-4"
+              onClick={this.handleReset}
+            >
               Reset
             </button>
           </div>
@@ -161,6 +155,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
